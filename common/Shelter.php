@@ -2,6 +2,47 @@
 
 class Shelter
 {
+    public static function action($params)
+    {
+        switch ($params['action']) {
+            case 'place':
+                if (self::place($params)) {
+                    echo "animal placed.\r\n";
+                }
+                break;
+            case 'find':
+                $animals = self::find($params['animal']);
+                if ($animals) {
+                    echo "animals findding.\r\n";
+                    print_r($animals);
+                }
+                break;
+            case 'give':
+                if ($params['animal']) {
+                    $obj         = self::factory($params['animal']);
+                    $animal = self::give($obj->getKind());
+                } else {
+                    $animal = self::give();
+                }
+                if ($animal) {
+                    echo "animal give away\r\n";
+                    print_r($animal);
+                }
+                break;
+            default:
+                throw new Exception("Don't know what to do.");
+        }
+    }
+
+    public static function place($params)
+    {
+        $obj = Shelter::factory($params['animal']);
+        $obj->setName($params['name']);
+        $obj->setAge($params['age']);
+
+        return $obj->save();
+    }
+
     public static function find($kind)
     {
         $obj    = self::factory($kind);

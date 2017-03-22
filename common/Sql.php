@@ -6,8 +6,8 @@ class Sql
     private $dbHost = "127.0.0.1";
     private $dbPort = 5432;
     private $dbName = "animal";
-    private $dbUser = "";
-    private $dbPassword = "";
+    private $dbUser = "postgres";
+    private $dbPassword = "pass";
     private $_connect = false;
 
     public function __construct()
